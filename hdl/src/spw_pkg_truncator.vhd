@@ -1,5 +1,18 @@
+-- this block limits spw package length
+-- it discards the package after iLimit symbols
+-- has been transfered. eop is transmitted when this happenes
+-- do not truncate packages if iLimit == 0
+-- fsm:
+-- 1. wait for first symbol
+-- 2. pass through a symbol and increment counter
+-- 3. loop in 2 untill cnt = iLimit
+-- 4. send eep
+-- 5. discard incoming pkg tail
+-- 6. goto 1
 library ieee;
 use ieee.std_logic_1164.all;
+library work;
+use work.config.all;
 
 
 entity spw_pkg_truncator is
@@ -7,7 +20,7 @@ entity spw_pkg_truncator is
         iClk: in std_logic;
         iReset: in std_logic;
 
-        iLimit: in std_logic_vector;
+        iLimit: in std_logic_vector (cLimit_width-1 downto 0);
 
         iValid: in std_logic;
         iData: in std_logic_vector (8 downto 0);
