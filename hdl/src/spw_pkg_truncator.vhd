@@ -5,7 +5,7 @@
 -- fsm:
 -- 1. wait for first symbol
 -- 2. pass through a symbol and increment counter
--- 3. loop in 2 untill cnt = iLimit
+-- 3. loop in 2 untill cnt = iLimit (goto 4) or eop/eep arrives (goto 1)
 -- 4. send eep
 -- 5. discard incoming pkg tail
 -- 6. goto 1
